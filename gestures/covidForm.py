@@ -56,7 +56,7 @@ def count_fingers(hand):
     if (hand.landmark[17].y*100 - hand.landmark[20].y*100) > thresh:
         count += 1
 
-    if (hand.landmark[5].x*100 - hand.landmark[4].x*100) > 6:
+    if (hand.landmark[5].x*100 - hand.landmark[4].x*100) < 6:
         count += 1
 
     return count 
@@ -284,5 +284,5 @@ def returnInt():
             break
 
 if __name__ == '__main__':
-    returnBool()
-    # returnInt()
+    # returnBool()
+    returnInt()
