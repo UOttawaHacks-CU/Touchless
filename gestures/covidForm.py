@@ -10,23 +10,31 @@ from selenium.webdriver.support.ui import WebDriverWait
 option = webdriver.ChromeOptions()
 option.add_argument("-incognito")
 #option.add_argument("--headless")
-#option.add_argument("disable-gpu")
 
 browser = webdriver.Chrome(executable_path='C/Users/Colin/Downloads/chromedriver_win32', options=option)
 browser.get('https://www.ontario.ca/self-assessment')
-time.sleep(3)
+time.sleep(1)
 browser.find_element(By.CLASS_NAME, "ontario-button--primary").click()
 
 # Set up webdriver
 def form():
 
     print('Getting all elements for current webpage')
-    # time.sleep(2)
-    buttons = browser.find_elements(By.CLASS_NAME, "ontario-button--primary")
-    back_buttons = browser.find_element(By.CLASS_NAME, "ontario-button--tertiary")
-    # print(len(buttons))
+    time.sleep(1)
 
-    return (back_buttons, buttons[0], buttons[1])
+    # Control flow if the current url is the multi check
+    get_url = browser.current_url
+    if (get_url == 'https://www.ontario.ca/self-assessment/question-symptoms-not-immunocompromised'):
+        # code for multi check
+        back_buttons = browser.find_element(By.CLASS_NAME, "ontario-button--tertiary")
+        clear_button = browser.find_element(By.ID, "none_of_the_above")
+        sick_button = browser.find_element(By.ID, "fever_and_or_chills")
+        submit_button = browser.find_element(By.CLASS_NAME, "ontario-button--primary")
+        buttons = [clear_button, sick_button, submit_button]
+    else:
+        buttons = browser.find_elements(By.CLASS_NAME, "ontario-button--primary")
+        back_buttons = browser.find_element(By.CLASS_NAME, "ontario-button--tertiary")
+    return (back_buttons, buttons)
 
 
 # Count fingers being held up -> int
@@ -66,7 +74,17 @@ def main():
 
     prev = -1
 
-    Back_button, False_button, True_button = form()
+    Back_button, buttons = form()
+
+    if (len(buttons) > 2):
+        multi = True
+        Clear = buttons[0]
+        Sick = buttons[1]
+        Submit = buttons[2]
+    else:
+        multi = False
+        Clear = buttons[0]
+        Sick = buttons[1]
 
     while True:
         end_time = time.time()
@@ -90,17 +108,90 @@ def main():
                 elif (end_time-start_time) > 0.2:
                     if (count == 1):
                         Back_button.click()
-                        Back_button, False_button, True_button = form()
+                        print('Back clicked')
+
+                        Back_button, buttons = form()
+
+                        if (len(buttons) > 2):
+                            multi = True
+                            Clear = buttons[0]
+                            Sick = buttons[1]
+                            Submit = buttons[2]
+                        else:
+                            multi = False
+                            Clear = buttons[0]
+                            Sick = buttons[1]
                 
                     elif (count == 2):
-                        False_button.click()
-                        Back_button, False_button, True_button = form()
+                        if not multi:
+                            Clear.click()
+                        else:
+                            Clear.click()
+                            Submit.click()
+
+                        print('False clicked')
+                        Back_button, buttons = form()
+
+                        if (len(buttons) > 2):
+                            multi = True
+                            Clear = buttons[0]
+                            Sick = buttons[1]
+                            Submit = buttons[2]
+                        else:
+                            multi = False
+                            Clear = buttons[0]
+                            Sick = buttons[1]
 
                     elif (count == 3):
-                        False_button.click()
+                        if not multi:
+                            Clear.click()
+                        else:
+                            Clear.click()
+                            Submit.click()
+                            
+                        print('False clicked')
+                        Back_button, buttons = form()
+
+                        if (len(buttons) > 2):
+                            multi = True
+                            Clear = buttons[0]
+                            Sick = buttons[1]
+                            Submit = buttons[2]
+                        else:
+                            multi = False
+                            Clear = buttons[0]
+                            Sick = buttons[1]
+
+                    elif (count == 4):
+                        if not multi:
+                            Clear.click()
+                        else:
+                            Clear.click()
+                            Submit.click()
+                            
+                        print('False clicked')
+                        Back_button, buttons = form()
+
+                        if (len(buttons) > 2):
+                            multi = True
+                            Clear = buttons[0]
+                            Sick = buttons[1]
+                            Submit = buttons[2]
+                        else:
+                            multi = False
+                            Clear = buttons[0]
+                            Sick = buttons[1]
 
                     elif (count == 5):
-                        True_button.click()
+                        print('True Clicked')
+
+                        if not multi:
+                            Sick.click()
+                        else:
+                            Sick.click()
+                            Submit.click()
+
+                        print('You are sick')
                         cv2.destroyAllWindows()
                         capture.release()
                         break
