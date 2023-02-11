@@ -1,0 +1,7 @@
+pip install opencv-python
+pip install mediapipe
+**Note must be running py 3.7-3.10
+pip install PyAutoGUI
+pip install python-time
+https://chromedriver.storage.googleapis.com/index.html?path=110.0.5481.77/
+pip install selenium
