@@ -5,6 +5,7 @@ pip install PyAutoGUI
 pip install python-time
 https://chromedriver.storage.googleapis.com/index.html?path=110.0.5481.77/
 pip install selenium
+pip install Flask-MySQLdb
 
 
 pip install SpeechRecognition
@@ -18,3 +19,6 @@ library_dirs=</opt/homebrew/opt/portaudio>/lib/
 
 pip install pyaudio
 brew install flac
+
+https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/index#models
+https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/python
