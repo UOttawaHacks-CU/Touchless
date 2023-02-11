@@ -61,8 +61,23 @@ def count_fingers(hand):
 
     return count 
 
+def thumbs(hand):
+    # result = True
+    thresh = (hand.landmark[9].x*100 - hand.landmark[5].x*100) * 2
+    if (count_fingers(hand) == 5):
+        return 1
 
-def main():
+    if (hand.landmark[4].y*100 - hand.landmark[5].y*100) > thresh and (hand.landmark[9].y*100 > hand.landmark[13].y*100) and (hand.landmark[10].x*100 < hand.landmark[12].x*100):
+        #THUMBS DOWN
+        return 3
+
+    if (hand.landmark[5].y*100 - hand.landmark[4].y*100) > thresh and (hand.landmark[9].y*100 < hand.landmark[13].y*100) and (hand.landmark[10].x*100 < hand.landmark[12].x*100):
+        #THUMBS UP
+        return 5
+
+    # return count
+
+def returnBool():
 
     capture = cv2.VideoCapture(0)
 
@@ -97,15 +112,16 @@ def main():
         if res.multi_hand_landmarks:
 
             hand_keyPoints = res.multi_hand_landmarks[0]
+            count = thumbs(hand_keyPoints)
+            # count = count_fingers(hand_keyPoints)
 
-            count = count_fingers(hand_keyPoints)
 
             if not(prev==count):
                 if not(start_init):
                     start_time = time.time()
                     start_init = True
 
-                elif (end_time-start_time) > 0.2:
+                elif (end_time-start_time) > 0.5:
                     if (count == 1):
                         Back_button.click()
                         print('Back clicked')
@@ -196,7 +212,7 @@ def main():
                         capture.release()
                         break
 
-                    prev = count
+                    # prev = count
                     start_init = False
 
 
@@ -209,6 +225,64 @@ def main():
             capture.release()
             break
 
+def returnInt():
+    capture = cv2.VideoCapture(0)
+
+    drawing = mp.solutions.drawing_utils
+    hands = mp.solutions.hands
+    hand_obj = hands.Hands(max_num_hands=1)
+
+    start_init = False 
+
+    prev = -1
+
+    Back_button, buttons = form()
+
+    if (len(buttons) > 2):
+        multi = True
+        Clear = buttons[0]
+        Sick = buttons[1]
+        Submit = buttons[2]
+    else:
+        multi = False
+        Clear = buttons[0]
+        Sick = buttons[1]
+
+    while True:
+        end_time = time.time()
+        cap_error, frame = capture.read()
+
+        frame = cv2.flip(frame, 1)
+
+        res = hand_obj.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+        if res.multi_hand_landmarks:
+
+            hand_keyPoints = res.multi_hand_landmarks[0]
+            count = count_fingers(hand_keyPoints)
+
+
+            if not(prev==count):
+                if not(start_init):
+                    start_time = time.time()
+                    start_init = True
+
+                elif (end_time-start_time) > 0.2:
+                    print(count)
+
+                    # prev = count
+                    start_init = False
+
+
+            drawing.draw_landmarks(frame, hand_keyPoints, hands.HAND_CONNECTIONS)
+
+        cv2.imshow("window", frame)
+
+        if cv2.waitKey(1) == 27:
+            cv2.destroyAllWindows()
+            capture.release()
+            break
 
 if __name__ == '__main__':
-    main()
+    returnBool()
+    # returnInt()
