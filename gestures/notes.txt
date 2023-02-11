@@ -6,7 +6,6 @@ pip install python-time
 https://chromedriver.storage.googleapis.com/index.html?path=110.0.5481.77/
 pip install selenium
 
-https://bootstrap-cheatsheet.themeselection.com/
 
 pip install SpeechRecognition
 brew install portaudio
@@ -19,3 +18,5 @@ library_dirs=</opt/homebrew/opt/portaudio>/lib/
 
 pip install pyaudio
 brew install flac
+
+https://bootstrap-cheatsheet.themeselection.com/
