@@ -7,3 +7,15 @@ https://chromedriver.storage.googleapis.com/index.html?path=110.0.5481.77/
 pip install selenium
 
 https://bootstrap-cheatsheet.themeselection.com/
+
+pip install SpeechRecognition
+brew install portaudio
+brew link portaudio
+sudo nano $HOME/.pydistutils.cfg
+
+[build_ext]
+include_dirs=</opt/homebrew/opt/portaudio>/include/
+library_dirs=</opt/homebrew/opt/portaudio>/lib/
+
+pip install pyaudio
+brew install flac
