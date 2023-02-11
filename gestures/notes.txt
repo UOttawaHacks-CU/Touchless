@@ -22,3 +22,17 @@ brew install flac
 
 https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/index#models
 https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/python
+pip install pyttsx3
+
+https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/index#models
+https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/python
+pip install pyttsx3
+
+https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/index#models
+https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer/python
+pip install pyttsx3
+
+https://bootstrap-cheatsheet.themeselection.com/
+
+
+https://bootstrap-cheatsheet.themeselection.com/
