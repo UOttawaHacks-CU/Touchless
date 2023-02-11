@@ -7,7 +7,8 @@
     <link href="styles.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Assesment Intake Form</title>
+    <title>COVID-19 self-assessment
+    </title>
 </head>
 <body>
       <script src="/main.js"></script>
@@ -21,17 +22,36 @@
         Question 1
       </div>
       <div class="card-body">
-        <h5 class="card-title">Have you been told that you should currently be quarantining, isolating or staying at home?</h5>
+        <h5 class="card-title">Do you have any of these symptoms?
+        </h5>
         
         <p class="card-text">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Could include being told by a doctor, health care provider, public health unit, federal border agent or other government authority</li>
-            <li class="list-group-item">Please note there are federal requirements for individuals who travelled outside of Canada, even if exempt from quarantine.
+            <li class="list-group-item">Choose any or all that are new, worsening and not related to other known causes or conditions.
+            </li>
             </ul>
         </p>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Abdominal pain<br>Not related to other known causes or conditions (for example, menstrual cramps, gastroesophageal reflux disease)        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+                Pink eye<br>Not related to other known causes or conditions (for example, blepharitis, recurrent styes)        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Decreased or no appetite (young children only)<br>Not related to other known causes or conditions (for example, anxiety, constipation)        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+                None of the above  </div>      
+    
+
         <br>
         <div class="buttons">
-          <button id="no" type="submit" action="" class="btn btn-primary next bg-dark" value="No">No</button>
+          <button id="no" type="submit" action="/selfisolate.html" class="btn btn-primary next bg-dark" value="No">No</button>
           <button id="yes" type="submit" action="/testingpositive.html" class="btn btn-primary bg-dark next" value="Yes">Yes</button>
         </div>
         </div>
