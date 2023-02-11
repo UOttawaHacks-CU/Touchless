@@ -19,11 +19,15 @@ def form():
     browser.get('C:/Users/Colin/VSCode_projects/gesture/form.html')
 
     # WebDriverWait(browser, 5)
-    radiobuttons = browser.find_elements(By.NAME, 'radio')
-    print(len(radiobuttons))
-    submitbutton = browser.find_element(By.NAME, 'submit')
+    checkboxes = []
+    checkboxes.append(browser.find_element(By.XPATH, '//*[@id="1"]'))
+    checkboxes.append(browser.find_element(By.XPATH, '//*[@id="2"]'))
+    checkboxes.append(browser.find_element(By.XPATH, '//*[@id="3"]'))
 
-    return (radiobuttons, submitbutton)
+    print(len(checkboxes))
+    submitbutton = browser.find_element(By.XPATH, '/html/body/form/input')
+
+    return (checkboxes, submitbutton)
 
 
 # Count fingers being held up -> int
@@ -95,7 +99,7 @@ def main():
                         radiobuttons[2].click()
 
                     elif (count == 5):
-                        submitbutton[0].click()
+                        submitbutton.click()
                         cv2.destroyAllWindows()
                         capture.release()
                         break
