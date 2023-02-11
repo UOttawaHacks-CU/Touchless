@@ -18,3 +18,5 @@ library_dirs=</opt/homebrew/opt/portaudio>/lib/
 
 pip install pyaudio
 brew install flac
+
+https://bootstrap-cheatsheet.themeselection.com/
