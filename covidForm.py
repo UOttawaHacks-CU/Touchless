@@ -21,10 +21,10 @@ browser.find_element(By.CLASS_NAME, "ontario-button--primary").click()
 def form():
 
     print('Getting all elements for current webpage')
-    time.sleep(2)
+    # time.sleep(2)
     buttons = browser.find_elements(By.CLASS_NAME, "ontario-button--primary")
     back_buttons = browser.find_element(By.CLASS_NAME, "ontario-button--tertiary")
-    print(len(buttons))
+    # print(len(buttons))
 
     return (back_buttons, buttons[0], buttons[1])
 
