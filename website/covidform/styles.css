@@ -1,4 +1,4 @@
-form {
+/* form {
   width: 60%;
   max-width: 500px;
   margin: 20px auto;
@@ -27,8 +27,8 @@ textarea {
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid lightgray;
-}
-
+} */
+/* 
 input[type="submit"], .next {
   width: 100%;
   margin-top: 20px;
@@ -42,4 +42,20 @@ input[type="submit"], .next {
 
 input[type="submit"]:hover, .next:hover {
   background-color: navy;
+} */
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#no {
+    width: 20%;
+    margin: 10px;
+}
+
+#yes {
+    width: 20%;
+    margin: 10px;
 }
