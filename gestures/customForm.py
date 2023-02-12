@@ -43,10 +43,13 @@ def form():
         noButton = browser.find_element(By.CLASS_NAME, "no")
     except:
         print('Last page')
-        capture.release()
-        time.sleep(10)
+        return ('empty', 'empty')
 
-    return (yesButton, noButton)
+    try:
+        return (yesButton, noButton)
+    except:
+        print('Failing here')
+        return ('empty', 'empty')
 
 
 # Count fingers being held up -> int
@@ -123,69 +126,66 @@ def main():
 
             hand_keyPoints = res.multi_hand_landmarks[0]
 
-            print(len(yesButton))
-            if len(yesButton) > 1: 
-                
-                print('Counting fingers')
-                count = count_fingers(hand_keyPoints)
-                print(count)
-                if not(prev==count):
-                    if not(start_init):
-                        start_time = time.time()
-                        start_init = True
+            if not (yesButton == 'empty' and noButton == 'empty'):
 
-                    elif (end_time-start_time) > 0.5:
-                        if (count == 1):
-                            yesButton[0].click()
+                print(len(yesButton))
+                if len(yesButton) > 1: 
+                    
+                    print('Counting fingers')
+                    count = count_fingers(hand_keyPoints)
+                    print(count)
+                    if not(prev==count):
+                        if not(start_init):
+                            start_time = time.time()
+                            start_init = True
 
-                        elif (count == 2):
-                            yesButton[1].click()
+                        elif (end_time-start_time) > 0.5:
+                            if (count == 1):
+                                yesButton[0].click()
 
-                        elif (count == 3):
-                            yesButton[2].click()
+                            elif (count == 2):
+                                yesButton[1].click()
 
-                        elif (count == 4):
-                            yesButton[3].click()
-                       
-                        elif (count == 5):
-                            yesButton[4].click()
+                            elif (count == 3):
+                                yesButton[2].click()
 
-                        elif (count == 0):
-                            noButton.click()
-                            yesButton, noButton = form()
+                            elif (count == 4):
+                                yesButton[3].click()
+                        
+                            elif (count == 5):
+                                yesButton[4].click()
 
-                        prev = count
-                        start_init = False
+                            elif (count == 0):
+                                noButton.click()
+                                yesButton, noButton = form()
 
-            else:
-                count = thumbs(hand_keyPoints)
+                            prev = count
+                            start_init = False
 
-                if not(prev==count):
-                    if not(start_init):
-                        start_time = time.time()
-                        start_init = True
+                else:
+                    count = thumbs(hand_keyPoints)
 
-                    elif (end_time-start_time) > 0.5:
-                        if (count == 1):
-                            print("back")
+                    if not(prev==count):
+                        if not(start_init):
+                            start_time = time.time()
+                            start_init = True
 
-                        elif (count == 3):
-                            print("no")
-                            noButton.click()
-                            yesButton, noButton = form()
+                        elif (end_time-start_time) > 0.5:
+                            if (count == 1):
+                                print("back")
 
-                        elif (count == 5):
-                            print("yes")
-                            yesButton[0].click()
-                            yesButton, noButton = form()
-                            capture.release()
-                            time.sleep(10)
-                            cv2.destroyAllWindows()
-                            break
+                            elif (count == 3):
+                                print("no")
+                                noButton.click()
+                                yesButton, noButton = form()
 
-                        # prev = count
-                        start_init = False
+                            elif (count == 5):
+                                print("yes")
+                                yesButton[0].click()
+                                yesButton, noButton = form()
 
+                            # prev = count
+                            start_init = False
 
             drawing.draw_landmarks(frame, hand_keyPoints, hands.HAND_CONNECTIONS)
 
