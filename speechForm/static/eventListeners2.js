@@ -5,7 +5,7 @@ function insertvalue(text) {
   document.getElementById("user-input").value = resulting;
   setTimeout(() => {
     document.getElementById("submit_button").click();
-    location.href = "http://127.0.0.1:5000/index1";
+    location.href = "http://127.0.0.1:5000/index3";
   }, 5000);
 }
 

@@ -45,3 +45,7 @@ input[type="submit"]:hover,
 .next:hover {
   background-color: navy;
 }
+
+#button_form {
+  display: none;
+}
