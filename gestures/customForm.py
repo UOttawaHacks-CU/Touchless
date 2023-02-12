@@ -10,8 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 option = webdriver.ChromeOptions()
 option.add_argument("-incognito")
 browser = webdriver.Chrome(executable_path='C/Users/Colin/Downloads/chromedriver_win32', options=option)
-# browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/severesymptoms.html')
-browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/severesymptoms.html')
+browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/severesymptoms.html')
+# browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/severesymptoms.html')
 
 
 # Set up webdriver
@@ -184,8 +184,8 @@ def main():
 
                             elif (count == 0):
                                 if yesButton[0].is_selected() or yesButton[1].is_selected() or yesButton[2].is_selected() or yesButton[3].is_selected():
-                                    # browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/positive.html')
-                                    browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/positive.html')
+                                    browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/positive.html')
+                                    # browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/positive.html')
                                     yesButton, noButton = "empty", "empty"
                                 elif yesButton[4].is_selected():
                                     noButton.click()
