@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 option = webdriver.ChromeOptions()
 option.add_argument("-incognito")
 browser = webdriver.Chrome(executable_path='C/Users/Colin/Downloads/chromedriver_win32', options=option)
-browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/severesymptoms.html')
+browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/severesymptoms.html')
 
 # Set up webdriver
 def form():
@@ -34,9 +34,18 @@ def form():
     try:
         yesButton = browser.find_elements(By.ID, "yes")
     except:
-        yesButton = browser.find_elements(By.CLASS_NAME, "cont1")
+        yesButton = browser.find_elements(By.CLASS_NAME, "form-check-input")
 
-    noButton = browser.find_element(By.CLASS_NAME, "no")
+    try:
+        if len(yesButton) == 0:
+            yesButton = browser.find_elements(By.CLASS_NAME, "form-check-input")
+        
+        noButton = browser.find_element(By.CLASS_NAME, "no")
+    except:
+        print('Last page')
+        capture.release()
+        time.sleep(10)
+
     return (yesButton, noButton)
 
 
@@ -99,7 +108,7 @@ def main():
     start_init = False 
 
     prev = -1
-
+    yesButton = []
     yesButton, noButton = form()
 
     while True:
@@ -114,7 +123,10 @@ def main():
 
             hand_keyPoints = res.multi_hand_landmarks[0]
 
-            if len(yesButton) != 1: 
+            print(len(yesButton))
+            if len(yesButton) > 1: 
+                
+                print('Counting fingers')
                 count = count_fingers(hand_keyPoints)
                 print(count)
                 if not(prev==count):
@@ -125,33 +137,26 @@ def main():
                     elif (end_time-start_time) > 0.5:
                         if (count == 1):
                             yesButton[0].click()
-                            yesButton, noButton = form()
 
-                        if (count == 2):
+                        elif (count == 2):
                             yesButton[1].click()
-                            yesButton, noButton = form()
 
-                        if (count == 3):
+                        elif (count == 3):
                             yesButton[2].click()
-                            yesButton, noButton = form()
 
-                        if (count == 4):
+                        elif (count == 4):
                             yesButton[3].click()
-                            yesButton, noButton = form()                           
-                        
-                        if (count == 5):
+                       
+                        elif (count == 5):
                             yesButton[4].click()
+
+                        elif (count == 0):
+                            noButton.click()
                             yesButton, noButton = form()
 
+                        prev = count
+                        start_init = False
 
-                        noButton.click()
-                        yesButton, noButton = form()
-                        cv2.destroyAllWindows()
-                        capture.release()
-                        break
-
-                prev = count
-                start_init = False
             else:
                 count = thumbs(hand_keyPoints)
 
@@ -173,8 +178,9 @@ def main():
                             print("yes")
                             yesButton[0].click()
                             yesButton, noButton = form()
-                            cv2.destroyAllWindows()
                             capture.release()
+                            time.sleep(10)
+                            cv2.destroyAllWindows()
                             break
 
                         # prev = count
