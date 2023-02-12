@@ -81,3 +81,15 @@ function handleSubmitButton7() {
     // do something when submit button is clicked
     window.location.href = "./finish.html";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  // This is called after the browser has loaded the web page
+  document
+    .getElementById("yes")
+    .addEventListener("click", handleSubmitButton8);
+});
+
+function handleSubmitButton8() {
+  // do something when submit button is clicked
+  window.location.href = "./positive.html";
+}
