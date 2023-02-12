@@ -67,11 +67,13 @@ def thumbs(hand):
     if (count_fingers(hand) == 5):
         return 1
 
-    if (hand.landmark[4].y*100 - hand.landmark[5].y*100) > thresh and (hand.landmark[9].y*100 > hand.landmark[13].y*100) and (hand.landmark[10].x*100 < hand.landmark[12].x*100):
+    if (hand.landmark[4].y*100 - hand.landmark[5].y*100) > thresh and (hand.landmark[9].y*100 > hand.landmark[13].y*100):
+    # if (hand.landmark[4].y*100 - hand.landmark[5].y*100) > thresh and (hand.landmark[9].y*100 > hand.landmark[13].y*100) and (hand.landmark[10].x*100 < hand.landmark[12].x*100):
+
         #THUMBS DOWN
         return 3
 
-    if (hand.landmark[5].y*100 - hand.landmark[4].y*100) > thresh and (hand.landmark[9].y*100 < hand.landmark[13].y*100) and (hand.landmark[10].x*100 < hand.landmark[12].x*100):
+    if (hand.landmark[5].y*100 - hand.landmark[4].y*100) > thresh and (hand.landmark[9].y*100 < hand.landmark[13].y*100):
         #THUMBS UP
         return 5
 
@@ -284,5 +286,5 @@ def returnInt():
             break
 
 if __name__ == '__main__':
-    # returnBool()
-    returnInt()
+    returnBool()
+    # returnInt()
