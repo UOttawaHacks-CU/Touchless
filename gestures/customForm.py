@@ -171,8 +171,6 @@ def main():
                         elif (count == 0):
                             if yesButton[0].is_selected() or yesButton[1].is_selected() or yesButton[2].is_selected() or yesButton[3].is_selected():
                                 capture.release()
-                                time.sleep(10)
-                                cv2.destroyAllWindows()
                             else:
                                 noButton.click()
                                 yesButton, noButton = form()
