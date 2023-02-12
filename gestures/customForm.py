@@ -10,8 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 option = webdriver.ChromeOptions()
 option.add_argument("-incognito")
 browser = webdriver.Chrome(executable_path='C/Users/Colin/Downloads/chromedriver_win32', options=option)
-# browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/severesymptoms.html')
-browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/severesymptoms.html')
+browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/severesymptoms.html')
+# browser.get('C:/Users/kevin/uOttahack/gesture/website/covidform/severesymptoms.html')
 
 
 # Set up webdriver
@@ -106,33 +106,43 @@ def main():
 
     capture = cv2.VideoCapture(0)
 
+
     drawing = mp.solutions.drawing_utils
     hands = mp.solutions.hands
     hand_obj = hands.Hands(max_num_hands=1)
 
-    start_init = False 
+
+    start_init = False
+
 
     prev = -1
     yesButton = []
     yesButton, noButton = form()
 
+
     while True:
         end_time = time.time()
         cap_error, frame = capture.read()
 
+
         frame = cv2.flip(frame, 1)
+
 
         res = hand_obj.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
+
         if res.multi_hand_landmarks:
+
 
             hand_keyPoints = res.multi_hand_landmarks[0]
 
+
             if not (yesButton == 'empty' and noButton == 'empty'):
 
+
                 print(len(yesButton))
-                if len(yesButton) > 1: 
-                    
+                if len(yesButton) > 1:
+                
                     print('Counting fingers')
                     count = count_fingers(hand_keyPoints)
                     print(count)
@@ -141,54 +151,64 @@ def main():
                             start_time = time.time()
                             start_init = True
 
-                    elif (end_time-start_time) > 1:
-                        if (count == 1):
-                            yesButton[0].click()
-                            if yesButton[4].is_selected():
+
+                        elif (end_time-start_time) > 1:
+                            if (count == 1):
+                                yesButton[0].click()
+                                if yesButton[4].is_selected():
+                                    yesButton[4].click()
+
+
+                            elif (count == 2):
+                                yesButton[1].click()
+                                if yesButton[4].is_selected():
+                                    yesButton[4].click()
+
+
+                            elif (count == 3):
+                                yesButton[2].click()
+                                if yesButton[4].is_selected():
+                                    yesButton[4].click()
+
+
+                            elif (count == 4):
+                                yesButton[3].click()
+                                if yesButton[4].is_selected():
+                                    yesButton[4].click()
+                        
+                            elif (count == 5):
                                 yesButton[4].click()
+                                for button in yesButton[:-1]:
+                                    if button.is_selected():
+                                        button.click()                                
 
-                        elif (count == 2):
-                            yesButton[1].click()
-                            if yesButton[4].is_selected():
-                                yesButton[4].click()
+                            elif (count == 0):
+                                if yesButton[0].is_selected() or yesButton[1].is_selected() or yesButton[2].is_selected() or yesButton[3].is_selected():
+                                    browser.get('C:/Users/Colin/VSCode_projects/gesture/website/covidform/positive.html')
+                                    yesButton, noButton = "empty", "empty"
+                                else:
+                                    noButton.click()
+                                    yesButton, noButton = form()
 
-                        elif (count == 3):
-                            yesButton[2].click()
-                            if yesButton[4].is_selected():
-                                yesButton[4].click()
 
-                        elif (count == 4):
-                            yesButton[3].click()
-                            if yesButton[4].is_selected():
-                                yesButton[4].click()
-                       
-                        elif (count == 5):
-                            yesButton[4].click()
-                            for button in yesButton[:-1]:
-                                if button.is_selected():
-                                    button.click()                                 
+                            # prev = count
+                            start_init = False
 
-                        elif (count == 0):
-                            if yesButton[0].is_selected() or yesButton[1].is_selected() or yesButton[2].is_selected() or yesButton[3].is_selected():
-                                capture.release()
-                            else:
-                                noButton.click()
-                                yesButton, noButton = form()
-
-                        # prev = count
-                        start_init = False
 
                 else:
                     count = thumbs(hand_keyPoints)
+
 
                     if not(prev==count):
                         if not(start_init):
                             start_time = time.time()
                             start_init = True
 
+
                         elif (end_time-start_time) > 0.5:
                             if (count == 1):
                                 print("back")
+
 
                             elif (count == 3):
                                 print("no")
@@ -202,10 +222,14 @@ def main():
 
                             # prev = count
                             start_init = False
+            else :
+                print('Empty')
 
             drawing.draw_landmarks(frame, hand_keyPoints, hands.HAND_CONNECTIONS)
 
+
         cv2.imshow("window", frame)
+
 
         if cv2.waitKey(1) == 27:
             cv2.destroyAllWindows()
