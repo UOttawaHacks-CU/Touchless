@@ -230,7 +230,7 @@ def main():
             drawing.draw_landmarks(frame, hand_keyPoints, hands.HAND_CONNECTIONS)
 
 
-        cv2.imshow("window", frame)
+        cv2.imshow("Camera", frame)
 
 
         if cv2.waitKey(1) == 27:
