@@ -3,6 +3,7 @@ import pyttsx3
 import beepy
 import json
 import os
+import requests
 
 
 def audioToText():
@@ -94,6 +95,16 @@ def addToPerson(text):
 
 def sendInfo(dict):
     print(json.dumps(dict, indent=4))
+    try:
+        url = 'https://n6bwdl0hp3.execute-api.ca-central-1.amazonaws.com/CUdynamodemo'
+        myobj = json.dumps(dict, indent=4)
+
+        x = requests.post(url, body = myobj)
+
+        print(x.text)
+        
+    except:
+        print('Error : Data not sent to server')
 
 
 if __name__ == '__main__':
