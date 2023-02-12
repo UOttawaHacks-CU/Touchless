@@ -13,6 +13,25 @@ app = Flask(__name__,
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/index1', methods=['GET'])
+def index1():
+    return app.send_static_file('index1.html')
+
+@app.route('/index2', methods=['GET'])
+def index2():
+    return app.send_static_file('index2.html')
+
+@app.route('/index3', methods=['GET'])
+def index3():
+    return app.send_static_file('index3.html')
+
+@app.route('/index4', methods=['GET'])
+def index4():
+    return app.send_static_file('index4.html')
+
+@app.route('/index5', methods=['GET'])
+def index5():
+    return app.send_static_file('index5.html')
 
 @app.route('/form', methods=['GET'])
 def form():
