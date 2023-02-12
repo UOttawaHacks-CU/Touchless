@@ -7,3 +7,12 @@
 
 ### Potential
 - DB for data from form to be stored
+
+
+## Updated
+- Get speech to text data from each question and store it in a json object of the format:
+    {
+        "name":"",
+        "medical history":""
+    }
+    - python to send a post request to a url with json data
