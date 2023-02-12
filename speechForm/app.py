@@ -1,6 +1,4 @@
-import time
 from flask import Flask, request, render_template, jsonify
-import sys
 from voiceToText import controller
 
 

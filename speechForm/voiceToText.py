@@ -1,6 +1,8 @@
 import speech_recognition
 import pyttsx3
 import beepy
+import json
+import os
 
 
 def audioToText():
@@ -38,10 +40,60 @@ def speak(input):
 
 def controller():
     speak("Initializing")
-    sr = speech_recognition.Recognizer()
     text_value = audioToText()
-    # print(text_value)
+    addToPerson(text_value)
     return text_value
+
+
+def addToPerson(text):
+    try:
+        with open('speechForm/person.json', 'r') as openfile:
+            person = json.load(openfile)
+    except:
+        person = {}
+ 
+    if (len(person) == 4):
+        person["q5"] = text
+        sendInfo(person)
+
+        os.remove("speechForm/person.json")
+        person = {}
+        json_object = json.dumps(person, indent=4)
+
+        with open("speechForm/person.json", "w") as outfile:
+            outfile.write(json_object)
+
+    elif (len(person) == 0):
+        person["name"] = text
+        json_object = json.dumps(person, indent=4)
+
+        with open("speechForm/person.json", "w") as outfile:
+            outfile.write(json_object)
+
+    elif (len(person) == 1):
+        person["medical history"] = text
+        json_object = json.dumps(person, indent=4)
+
+        with open("speechForm/person.json", "w") as outfile:
+            outfile.write(json_object)
+
+    elif (len(person) == 2):
+        person["q3"] = text
+        json_object = json.dumps(person, indent=4)
+        
+        with open("speechForm/person.json", "w") as outfile:
+            outfile.write(json_object)
+
+    elif (len(person) == 3):
+        person["q4"] = text
+        json_object = json.dumps(person, indent=4)
+        
+        with open("speechForm/person.json", "w") as outfile:
+            outfile.write(json_object)
+
+
+def sendInfo(dict):
+    print(json.dumps(dict, indent=4))
 
 
 if __name__ == '__main__':
