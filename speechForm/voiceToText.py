@@ -85,7 +85,7 @@ def addToPerson(text):
             outfile.write(json_object)
 
     elif (len(person) == 2):
-        person["q3"] = text
+        person["symptoms"] = text
         json_object = json.dumps(person, indent=4)
         
         with open("person.json", "w") as outfile:
