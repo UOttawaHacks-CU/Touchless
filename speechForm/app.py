@@ -35,7 +35,7 @@ def index5():
 def form():
     # print("In controller")
     try:
-        # print('In form route')
+        print('In form route')
         result_text = controller()
         # print('After controller')
     except:

@@ -5,7 +5,6 @@ import json
 import os
 import requests
 
-
 def audioToText():
     with speech_recognition.Microphone() as source:
         sr = speech_recognition.Recognizer()
@@ -29,7 +28,7 @@ def audioToText():
         for word in words:
             if (word == 'yes' or word == 'yeah' or word=='yep' or word=='mmhmm' or word==''):
                 # print('Returning : ' + text)
-                return text
+                return addToPerson(text)
         audioToText()
 
 
@@ -40,57 +39,66 @@ def speak(input):
 
 
 def controller():
+    path = os.getcwd()
+    print(path)
     speak("Initializing")
-    text_value = audioToText()
-    addToPerson(text_value)
+    text_value, _ = audioToText()
+    print('After form' + text_value)
     return text_value
 
 
 def addToPerson(text):
+    print('Text being added : ' + text)
+    text_original = text
     try:
-        with open('speechForm/person.json', 'r') as openfile:
+        with open('person.json', 'r') as openfile:
             person = json.load(openfile)
+            print('Person read')
     except:
         person = {}
+        print('Person not read')
  
     if (len(person) == 4):
         person["medication"] = text
         sendInfo(person)
 
-        os.remove("speechForm/person.json")
+        os.remove("person.json")
         person = {}
         json_object = json.dumps(person, indent=4)
 
-        with open("speechForm/person.json", "w") as outfile:
+        with open("person.json", "w") as outfile:
             outfile.write(json_object)
 
-    elif (len(person) == 0):
+    elif (person == {}):
+        print('First question : JSON empty')
         person["name"] = text
         json_object = json.dumps(person, indent=4)
 
-        with open("speechForm/person.json", "w") as outfile:
+        with open("person.json", "w") as outfile:
             outfile.write(json_object)
 
     elif (len(person) == 1):
         person["medical history"] = text
         json_object = json.dumps(person, indent=4)
 
-        with open("speechForm/person.json", "w") as outfile:
+        with open("person.json", "w") as outfile:
             outfile.write(json_object)
 
     elif (len(person) == 2):
         person["q3"] = text
         json_object = json.dumps(person, indent=4)
         
-        with open("speechForm/person.json", "w") as outfile:
+        with open("person.json", "w") as outfile:
             outfile.write(json_object)
 
     elif (len(person) == 3):
         person["allergies"] = text
         json_object = json.dumps(person, indent=4)
         
-        with open("speechForm/person.json", "w") as outfile:
+        with open("person.json", "w") as outfile:
             outfile.write(json_object)
+
+    return text_original, json_object
 
 
 def sendInfo(dict):
@@ -102,7 +110,7 @@ def sendInfo(dict):
         x = requests.post(url, body = myobj)
 
         print(x.text)
-        
+
     except:
         print('Error : Data not sent to server')
 
