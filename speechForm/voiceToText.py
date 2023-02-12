@@ -53,7 +53,7 @@ def addToPerson(text):
         person = {}
  
     if (len(person) == 4):
-        person["q5"] = text
+        person["medication"] = text
         sendInfo(person)
 
         os.remove("speechForm/person.json")
@@ -85,7 +85,7 @@ def addToPerson(text):
             outfile.write(json_object)
 
     elif (len(person) == 3):
-        person["q4"] = text
+        person["allergies"] = text
         json_object = json.dumps(person, indent=4)
         
         with open("speechForm/person.json", "w") as outfile:
