@@ -2,10 +2,13 @@
 
 ## Structure
 > /website : front end
+> 
 > /speechform : get speech to text input and then process and send to backend
+> 
 > /gestures : read user gestures
 
 <br>
+
 ## More information from our devpost - [Here](https://devpost.com/software/touchless-g72ten)
 
 ### Inspiration
